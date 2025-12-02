@@ -3,9 +3,29 @@ import utils.Utils;
 void main() throws IOException {
     long start = System.nanoTime();
     List<String> lines = Files.readAllLines(Path.of(Utils.Strings.BASE + 1 + Utils.Strings.INPUT));
-    int startingPos = 50;
+    int position = 50;
     int amount, numberOfTurns = 0;
+    //PART2
     for (String line : lines) {
+        amount = Integer.parseInt(line.substring(1));
+        if (line.startsWith("L")) {
+            while (amount > 0) {
+                position--;
+                if (position < 0) position = 99;
+                if (position == 0) numberOfTurns++;
+                amount--;
+            }
+        } else {
+            while (amount > 0) {
+                position++;
+                if (position > 99) position = 0;
+                if (position == 0) numberOfTurns++;
+                amount--;
+            }
+        }
+    }
+    //PART1
+    /*for (String line : lines) {
         amount = Integer.parseInt(line.substring(1));
         if (line.startsWith("L")) {
             startingPos += amount;
@@ -16,9 +36,10 @@ void main() throws IOException {
             numberOfTurns++;
             startingPos = 0;
         }
-    }
+    }*/
+
     long end = System.nanoTime();
     System.out.println("Number of turns: " + numberOfTurns);
-    double milliTime = (end-start) / 1_000_000_000D;
+    double milliTime = (end - start) / 1_000_000_000D;
     System.out.println("Solution found in: " + milliTime + " seconds");
 }
