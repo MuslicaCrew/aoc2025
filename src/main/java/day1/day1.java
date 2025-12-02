@@ -1,7 +1,8 @@
+import utils.Utils;
+
 void main() throws IOException {
     long start = System.nanoTime();
-    //List<String> lines = Utils.readInput(1);
-    List<String> lines = Files.readAllLines(Path.of("src/main/java/day1/input.txt"));
+    List<String> lines = Files.readAllLines(Path.of(Utils.Strings.BASE + 1 + Utils.Strings.INPUT));
     int startingPos = 50;
     int amount, numberOfTurns = 0;
     for (String line : lines) {
