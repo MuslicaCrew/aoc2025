@@ -26,7 +26,7 @@ void main() throws IOException {
         }
     }*/
     //PART2 - "Normal"
-    for (String line : lines) {
+    /*for (String line : lines) {
         amount = (line.charAt(0) == 'L' ? -1 : 1) * Integer.parseInt(line.substring(1));
         //revolutions = amount / (amount < 0 ? -100 : 100);
         revolutions = Math.abs(amount / TOTAL);
@@ -38,7 +38,30 @@ void main() throws IOException {
         //position = Math.floorMod(position + amount, 100);
         position = (position + amount) % TOTAL;
         position = position < 0 ? position + TOTAL : position;
+    }*/
+
+    //PART2 - "Normal" my way
+    for (String line : lines) {
+        amount = Integer.parseInt(line.substring(1));
+        if (line.startsWith("L")) {
+            amount *= -1;
+            numberOfTurns += Math.abs(amount / 100);
+            remainder = amount % 100;
+            if (position != 0 && position + remainder <= 0) {
+                numberOfTurns++;
+            }
+        } else {
+            numberOfTurns += amount / 100;
+            remainder = amount % 100;
+            if (position + remainder >= 100) {
+                numberOfTurns++;
+            }
+        }
+        position = (position + amount) % 100;
+        position = position < 0 ? position + 100 : position;
     }
+
+
     //PART1
     /*for (String line : lines) {
         amount = Integer.parseInt(line.substring(1));
