@@ -3,9 +3,10 @@ import utils.Utils;
 void main() throws IOException {
     long start = System.nanoTime();
     List<String> lines = Files.readAllLines(Path.of(Utils.Strings.BASE + 1 + Utils.Strings.INPUT));
-    int position = 50;
-    int amount, numberOfTurns = 0;
-    //PART2
+    int position = 50, numberOfTurns = 0, amount, remainder, revolutions;
+    final int TOTAL = 100;
+    //PART2 - BRUTE FORCE - Clicking 6738
+    /*
     for (String line : lines) {
         amount = Integer.parseInt(line.substring(1));
         if (line.startsWith("L")) {
@@ -23,21 +24,34 @@ void main() throws IOException {
                 amount--;
             }
         }
+    }*/
+    //PART2 - "Normal"
+    for (String line : lines) {
+        amount = (line.charAt(0) == 'L' ? -1 : 1) * Integer.parseInt(line.substring(1));
+        //revolutions = amount / (amount < 0 ? -100 : 100);
+        revolutions = Math.abs(amount / TOTAL);
+        remainder = amount % TOTAL;
+        numberOfTurns += revolutions;
+        if ((amount < 0 && position != 0 && position + remainder <= 0) || (amount > 0 && position + remainder >= TOTAL)) {
+            numberOfTurns++;
+        }
+        //position = Math.floorMod(position + amount, 100);
+        position = (position + amount) % TOTAL;
+        position = position < 0 ? position + TOTAL : position;
     }
     //PART1
     /*for (String line : lines) {
         amount = Integer.parseInt(line.substring(1));
         if (line.startsWith("L")) {
-            startingPos += amount;
+            position += amount;
         } else {
-            startingPos -= amount;
+            position -= amount;
         }
-        if (startingPos % 100 == 0){
+        if (position % 100 == 0) {
             numberOfTurns++;
-            startingPos = 0;
+            position = 0;
         }
     }*/
-
     long end = System.nanoTime();
     System.out.println("Number of turns: " + numberOfTurns);
     double milliTime = (end - start) / 1_000_000_000D;
