@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="java-25-openjdk-amd64">
-    <CLASSES>
-      <root url="file://$PROJECT_DIR$/../../../../usr/lib/jvm/java-25-openjdk-amd64" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>
